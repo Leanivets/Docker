@@ -4,4 +4,4 @@ RUN pip install Flask==0.10.1
 WORKDIR /app
 COPY app /app
  
-CMD["python", "identidok.py"]
+CMD ["python3", "identidock.py"]
