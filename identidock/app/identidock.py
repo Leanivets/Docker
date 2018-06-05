@@ -2,29 +2,33 @@ from flask import Flask, Response
 import requests
 
 app = Flask(__name__)
-def_name = "Horse"
+default_name = 'Joe Bloggs'
+
 
 @app.route('/')
 def mainpage():
-	name = def_name
+	name = default_name
 
-	header = '<html><head><title>Hello people</title></head><body>'
-	body = '''<form method="Post">
-		  Hello <input type="text" name="name" value="{}">
-		  <input type="submit" value="Enter">
-		  </form>
-		  <p>You look like a:
-		  <img src="/monster/monster.png">
-		  '''.format(name)
+	header = '<html><head><title>Identidock</title></head><body>'
+	body = '''<form method="POST">
+              Hello <input type="text" name="name" value="{}">
+              <input type="submit" value="submit">
+              </form>
+              <p>You look like a:
+              <img src="/monster/monster.png"/>
+              '''.format(name)
 	footer = '</body></html>'
+
 	return header + body + footer
+
 
 @app.route('/monster/<name>')
 def get_identicon(name):
-	req = requests.get('http://dmonster:8000/monster/' + name + '?size=80')
-	image = req.content
+
+	r = requests.get('http://dnmonster:8080/monster/' + name + '?size=80')
+	image = r.content
 
 	return Response(image, mimetype='image/png')
 
 if __name__ == '__main__':
-        app.run(debug=True, host='0.0.0.0')
+	app.run(debug=True, host='0.0.0.0')
